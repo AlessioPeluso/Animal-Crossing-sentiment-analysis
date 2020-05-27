@@ -5,18 +5,10 @@
 # -- Animal Crossing sentiment analysis
 # -------------------------------------
 
-# My research question will be: How do negative and positive reviews compare in the words they use?
-
-# -- I'm going to use the Shifterator package from Gallagher's GitHub repo:
-# -- the Shifterator package provides functionality for constructing word shift graphs,
-# -- vertical bart charts that quantify which words contribute to a pairwise difference between
-# -- two texts and how they contribute. By allowing you to look at changes in how words are used,
-# -- word shifts help you to conduct analyses of sentiment, entropy, and divergence that are
-# -- fundamentally more interpretable.
+# How do negative and positive reviews compare in the words they use?
 
 # --------------------------------------------------------------------------------------------------
 
-# !pip install shifterator
 
 # import packages
 import pandas as pd
@@ -151,32 +143,4 @@ plt.figure(figsize=(16, 10))
 plt.axis('off')
 plt.imshow(wordcloud.recolor(color_func=img_color), interpolation="bilinear")
 plt.show()
-# --------------------------------------------------------------------------------------------------
-
-# --- Using shifterator
-
-# Entropy shift
-
-# get an entropy shift
-entropy_shift = rs.EntropyShift(reference=clean_texts_neg,
-                                comparison=clean_texts_pos,
-                                base=2)
-entropy_shift.get_shift_graph()
-
-# It looks like the negative reviews are in purple and positive ones are in yellow.
-# It looks like feedback about the whole "one island per Switch" dominates. A lot of the words are
-# nouns and verbs like "console", "family", "money", "fix", "save".
-
-# Jensen-Shannon
-
-# get a Jensen-Shannon divergence shift
-from shifterator import symmetric_shift as ss
-jsd_shift = ss.JSDivergenceShift(system_1=clean_texts_neg,
-                                 system_2=clean_texts_pos,
-                                 base=2)
-jsd_shift.get_shift_graph()
-
-# Apart from the negative and positive reviews switching places, I don't have too much more
-# to add to this plot. This analysis pulls out slightly different words and rankings.
-
 # --------------------------------------------------------------------------------------------------
