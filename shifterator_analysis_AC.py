@@ -88,7 +88,7 @@ clean_texts_pos = clean_text(texts_pos)
 
 # --------------------------------------------------------------------------------------------------
 
-# Data visualization with in the old way
+# Data visualization 
 
 # dataframes for most frequent common words in positive and negative reviews
 common = pd.DataFrame(clean_texts.most_common(15),
@@ -117,7 +117,7 @@ common_pos.sort_values(by='count').plot.barh(x='words',
 ax.set_title("Common Words Found in Positive Reviews")
 plt.show()
 
-# word cloud for negative reviews
+# word cloud for all the reviews
 #!pip install wordcloud
 
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
