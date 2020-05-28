@@ -104,23 +104,32 @@ plt.imshow(wordcloud , interpolation = 'bilinear')
 
 ## a little extra
 
-Some *NPL art* (as I call it), we can draw the wordcloud over every image, so let's do it with the nintendo logo.
+We can draw the wordcloud over every image, just using the mask option, so let's do it with Animal Crossing logo.
 
 ```
-animal = 'https://cdn.freebiesupply.com/images/large/2x/nintendo-logo-black-and-white.png'
-with urllib.request.urlopen(animal) as url:
+mask = 'https://ih1.redbubble.net/image.1097796332.1956/flat,550x550,075,f.u1.jpg'
+
+with urllib.request.urlopen(mask) as url:
     f = BytesIO(url.read())
 img = Image.open(f)
 
 mask = np.array(img)
 img_color = ImageColorGenerator(mask)
 
-wordcloud = WordCloud(background_color='white', mask=mask, max_font_size=2000, max_words=2000, random_state=1612, stopwords = STOPWORDS).generate(" ".join(texts))
+wc = WordCloud(background_color="white", max_words=2500, mask=mask, 
+               stopwords=STOPWORDS, contour_width=2, contour_color='steelblue')
 
-plt.figure(figsize=(16, 10))
-# recolor wordcloud and show
-# we could also give color_func=image_colors directly in the constructor
-plt.axis('off')
-plt.imshow(wordcloud.recolor(color_func=img_color), interpolation="bilinear")
+# generate word cloud
+wc.generate(" ".join(texts))
+
+# show
+plt.imshow(wc, interpolation='bilinear')
+plt.axis("off")
+plt.figure()
 ```
 
+![](Images/animal.png)
+
+---
+
+Thanks for reading, feel free to leave a comment!
